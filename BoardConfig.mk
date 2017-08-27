@@ -38,18 +38,30 @@ TARGET_2ND_CPU_ABI := armeabi-v7a
 TARGET_2ND_CPU_ABI2 := armeabi
 TARGET_2ND_CPU_VARIANT := generic
 
+TARGET_CPU_SMP := true
+
+ARCH_ARM_HAVE_NEON := true
+ARCH_ARM_HAVE_VFP := true
+ARCH_ARM_HAVE_TLS_REGISTER := true
+
+# Compilation Flags
+TARGET_GLOBAL_CFLAGS += -mfpu=neon -mfloat-abi=softfp
+TARGET_GLOBAL_CPPFLAGS += -mfpu=neon -mfloat-abi=softfp
+
 # Partitions (TBD)
 BOARD_FLASH_BLOCK_SIZE := 131072
-BOARD_BOOTIMAGE_PARTITION_SIZE :=      # x * 1024 mmcblk0p1X
-BOARD_RECOVERYIMAGE_PARTITION_SIZE :=   # x * 1024 mmcblk0p1X
-BOARD_SYSTEMIMAGE_PARTITION_SIZE :=   # x * 1024 mmcblk0p3X
-BOARD_USERDATAIMAGE_PARTITION_SIZE :=  # x * 1024 mmcblk0p3X
+BOARD_BOOTIMAGE_PARTITION_SIZE := 33554432 # 32768 * 1024 mmcblk0p46
+BOARD_RECOVERYIMAGE_PARTITION_SIZE := 33554432 # 32768 * 1024 mmcblk0p49
+BOARD_SYSTEMIMAGE_PARTITION_SIZE := 5368709120 # 5242880 * 1024 mmcblk0p57
+BOARD_USERDATAIMAGE_PARTITION_SIZE := 24691850240 # 24113135 * 1024 mmcblk0p60
 
 # KERNEL
 BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.console=ttyHSL0 user_debug=30 msm_rtb.filter=0x237 ehci-hcd.park=3 androidboot.bootdevice=7824900.sdhci lpm_levels.sleep_disabled=1 androidboot.hardware=mh buildvariant=user
 BOARD_KERNEL_BASE := 0x80000000
 BOARD_KERNEL_PAGESIZE := 2048
 BOARD_MKBOOTIMG_ARGS := --kernel_offset 0x00008000 --ramdisk_offset 0x02000000 --tags_offset 0x00000100
+
+TARGET_RECOVERY_FSTAB := device/lge/mh/recovery.fstab
 
 # Power
 TARGET_POWERHAL_VARIANT := qcom
